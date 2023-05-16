@@ -1,4 +1,6 @@
-import "@styles/global.css";
+import "@styles/globals.css";
+// So that the navbar can be reused across all the pages, it's imported here
+import Nav from "@components/Nav";
 
 import React from "react";
 
@@ -14,7 +16,10 @@ const RootLayout = ({ children }) => {
         <div className="main">
           <div className="gradient" />
         </div>
-        <main className="app">{children}</main>
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );
