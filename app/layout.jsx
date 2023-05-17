@@ -1,6 +1,7 @@
 import "@styles/globals.css";
 // So that the navbar can be reused across all the pages, it's imported here
 import Nav from "@components/Nav";
+import Provider from "@components/Provider";
 
 import React from "react";
 
