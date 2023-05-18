@@ -19,6 +19,9 @@ const Nav = () => {
   // Providers to be used to sign users in and out
   const [providers, setProviders] = useState(null);
 
+  // State to handle display of drop down menu
+  const [toggleDropDown, setToggleDropDown] = useState(false);
+
   // Hook to set the providers at the start of the program
   useEffect(() => {
     const setProviders = async () => {
@@ -47,7 +50,8 @@ const Nav = () => {
         <p className="logo_text">Site title</p>
       </Link>
       {/* The code below this comment mainly deals with desktop users, will normally be hidden to any other users with smaller screen sizes.
-      The sm:flex makes it visible to only users with small screens while hidden makes it normally not appear otherwise.*/}
+      The sm:flex makes it visible to only users with small screens while hidden makes it normally not appear otherwise. So put together
+      would make it the content is invisible to only users with larger screen sizes.*/}
       <div className="sm:flex hidden">
         {/* What's displayed depends on whether the user is logged in or not */}
         {isLoggedIn ? (
@@ -68,6 +72,65 @@ const Nav = () => {
                 alt="profile"
               />
             </Link>
+          </div>
+        ) : (
+          <>
+            {/* If have access to providers, then map over them and return a button for each one. In the case of this program 
+            only the Google provider will bt used. */}
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
+      </div>
+      {/* The code below deals mainly with mobile user navigation */}
+      <div className="sm:hidden flex relative">
+        {isLoggedIn ? (
+          <div className="flex">
+            <Image
+              src="/assets/images/logo.svg"
+              width={37}
+              height={37}
+              className="rounded-full"
+              alt="profile"
+              onClick={() => setToggleDropDown((prev) => !prev)}
+            />
+            {toggleDropDown && (
+              <div className="dropdown">
+                <Link
+                  href="/profile"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href="/create-post"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  Create Post
+                </Link>
+                <button
+                  className="mt-5 w-full black_btn"
+                  type="button"
+                  onClick={() => {
+                    setToggleDropDown(false);
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
