@@ -2,7 +2,7 @@
 import { Schema, model, models } from "mongoose";
 
 // User schema
-const UserSchema = newSchema({
+const UserSchema = new Schema({
   email: {
     type: String,
     // Has to be unique, otherwise print out that email isn't unique

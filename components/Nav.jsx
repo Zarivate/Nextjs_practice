@@ -24,16 +24,16 @@ const Nav = () => {
 
   // Hook to set the providers at the start of the program
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
 
       setProviders(response);
     };
-    setProviders();
+    setUpProviders();
   }, []);
 
-  // Dummy variable to test out components/buttons that appear to logged in users
-  const isLoggedIn = true;
+  // Get data from user session to see if they're logged in or not
+  const { data: session } = useSession();
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -54,7 +54,7 @@ const Nav = () => {
       would make it the content is invisible to only users with larger screen sizes.*/}
       <div className="sm:flex hidden">
         {/* What's displayed depends on whether the user is logged in or not */}
-        {isLoggedIn ? (
+        {session?.user ? (
           // For any device larger than small, medium and above, will be able to see the button
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-post" className="black_btn">
@@ -65,7 +65,7 @@ const Nav = () => {
             </button>
             <Link href="/profile">
               <Image
-                src="/assets/images/logo.svg"
+                src={session?.user.image}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -93,10 +93,10 @@ const Nav = () => {
       </div>
       {/* The code below deals mainly with mobile user navigation */}
       <div className="sm:hidden flex relative">
-        {isLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
+              src={session?.user.image}
               width={37}
               height={37}
               className="rounded-full"
