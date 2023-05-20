@@ -54,6 +54,21 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_input"
           />
         </label>
+        <div className="flex-end mx-3 mb-5 gap-4">
+          <Link href="/" className="text-gray-500 text-sm">
+            Cancel
+          </Link>
+          <button
+            type="submit"
+            // If user is in the process of submitting something, the button is disabled
+            disabled={submitting}
+            className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white"
+          >
+            {/* Check to see if currentling submitting or not, if so then display the type of
+            post being made, otherwise just show the type */}
+            {submitting ? `${type}...` : type}
+          </button>
+        </div>
       </form>
     </section>
   );
