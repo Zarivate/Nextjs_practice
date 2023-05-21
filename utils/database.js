@@ -1,4 +1,5 @@
 // File to be used to connect to mongodb database for any necessarry conections
+
 import mongoose from "mongoose";
 
 // Variable to help track connection status
