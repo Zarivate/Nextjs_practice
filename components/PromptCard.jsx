@@ -67,7 +67,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           handleTagClick && handleTagClick(post.tag);
         }}
       >
-        {post.tag}
+        #{post.tag}
       </p>
       {/* Check to make sure the logged in user is the same as the creator of the post, and
       is on the profile page. If so then allow the delete and edit functionality to appear. */}

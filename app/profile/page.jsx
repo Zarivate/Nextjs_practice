@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 
 const MyProfile = () => {
+  // Intialize router
+  const router = useRouter();
+
   // User session
   const { data: session } = useSession();
 
@@ -29,9 +32,30 @@ const MyProfile = () => {
     }
   }, [session?.user.id]);
 
-  const handleEdit = () => {};
+  const handleEdit = (post) => {
+    router.push(`/update-prompt?id=${post._id}`);
+  };
 
-  const handleDelete = async () => {};
+  const handleDelete = async (post) => {
+    // Make sure user wants to delete post
+    const confirmed = confirm("Are you sure you want to delete this?");
+
+    // If user is sure, make a call to delete the post
+    if (confirmed) {
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: "DELETE",
+        });
+
+        // Filter out the delete post from the rest of the posts
+        const filteredPosts = userPosts.filter((p) => p._id !== post._id);
+
+        setUserPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Profile
