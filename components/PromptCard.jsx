@@ -25,10 +25,23 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     setTimeout(() => setCopied(""), 3000);
   };
 
+  // Function to handle if a user's profile is clicked
+  const handleProfileClick = () => {
+    // Check to see if the post's creator id matches with the current session user's profile id, if so
+    // that means the user clicked on their own profile and redirect them to their own profile page
+    if (post.creator._id === session?.user.id) return router.push("/profile");
+
+    // Else if that's not the case, then redirect to that specific user's profile page
+    router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+  };
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+        <div
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          onClick={handleProfileClick}
+        >
           <Image
             src={post.creator.image}
             alt="user_image"
@@ -55,6 +68,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             }
             width={12}
             height={12}
+            alt="copybtn"
           />
         </div>
       </div>

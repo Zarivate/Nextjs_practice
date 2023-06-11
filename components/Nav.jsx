@@ -47,7 +47,7 @@ const Nav = () => {
           className="object-contain"
         />
         {/* The classname here utilizes a style that makes it so the paragraph doesn't appear on smaller screens */}
-        <p className="logo_text">Site title</p>
+        <p className="logo_text">Test Site</p>
       </Link>
       {/* The code below this comment mainly deals with desktop users, will normally be hidden to any other users with smaller screen sizes.
       The sm:flex makes it visible to only users with small screens while hidden makes it normally not appear otherwise. So put together
